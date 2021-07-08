@@ -9,6 +9,11 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+resources:
+ repositories:
+   - repository: owasp_zap
+     type: git
+     name: security/owasp_zap
 steps:
 - task: Maven@3
   inputs:
@@ -31,3 +36,7 @@ steps:
     appType: 'webAppLinux'
     appName: 'myfirstapp-sec'
     package: '$(System.DefaultWorkingDirectory)/**/*.war'
+- template: zap_scan.yml@owasp_zap
+  parameters:
+    target: 'https://xss-game.appspot.com/level1/frame'
+    scanType: 'zap-baseline.py'

@@ -15,7 +15,7 @@ resources:
      type: git
      name: security/owasp_zap
 stages:
-  - stage: build&deploy
+  - stage: build_deploy
     jobs:
       - job: 
         steps:

@@ -30,4 +30,4 @@ steps:
     azureSubscription: 'HCVN_NONPRO_EDU_Connector'
     appType: 'webAppLinux'
     appName: 'myfirstapp-sec'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(System.DefaultWorkingDirectory)/**/*.war'

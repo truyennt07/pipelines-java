@@ -25,3 +25,9 @@ steps:
     targetType: 'inline'
     script: |
       ls -la
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'HCVN_NONPRO_EDU_Connector'
+    appType: 'webAppLinux'
+    appName: 'myfirstapp-sec'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'

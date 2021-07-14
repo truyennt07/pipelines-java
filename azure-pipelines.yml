@@ -3,9 +3,6 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
-trigger:
-- master
-
 pool:
   vmImage: ubuntu-latest
 
@@ -15,31 +12,6 @@ resources:
      type: git
      name: security/owasp_zap
 stages:
-  - stage: build_deploy
-    jobs:
-      - job: 
-        steps:
-          - task: Maven@3
-            inputs:
-              mavenPomFile: 'pom.xml'
-              mavenOptions: '-Xmx3072m'
-              javaHomeOption: 'JDKVersion'
-              jdkVersionOption: '1.8'
-              jdkArchitectureOption: 'x64'
-              publishJUnitResults: true
-              testResultsFiles: '**/surefire-reports/TEST-*.xml'
-              goals: 'package'
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: |
-                ls -la
-          - task: AzureWebApp@1
-            inputs:
-              azureSubscription: 'HCVN_NONPRO_EDU_Connector'
-              appType: 'webAppLinux'
-              appName: 'myfirstapp-sec'
-              package: '$(System.DefaultWorkingDirectory)/**/*.war'
   - stage: runSecTest
     jobs:
       - template: zap_scan.yml@owasp_zap
